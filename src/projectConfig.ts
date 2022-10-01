@@ -12,13 +12,18 @@ async function enabledSocialLogins(context: SecurityContext) {
 
 export async function getProjectConfig() {
     const context = await securityContext();
-    const { client: { apiKey }, signIn: { email } } = await fetchProjectConfig(context);
-    const signInProviders = await enabledSocialLogins(context);
-    if (email?.enabled) {
+    const [
+        projectConfig,
+        signInProviders
+    ] = await Promise.all([
+        fetchProjectConfig(context),
+        enabledSocialLogins(context)
+    ]);
+    if (projectConfig?.signIn?.email?.enabled) {
         signInProviders.push('password')
     }
     return {
-        apiKey,
+        apiKey: projectConfig?.client?.apiKey,
         signInProviders
     }
 }
