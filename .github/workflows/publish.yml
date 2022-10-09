@@ -5,11 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'pnpm'
-      - uses: pnpm/action-setup@v2.2.2
       - run: pnpm install --frozen-lockfile
       - uses: JS-DevTools/npm-publish@v1
         with:
