@@ -13,6 +13,7 @@ jobs:
           node-version: 16
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
+      - run: pnpm build
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
